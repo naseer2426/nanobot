@@ -45,10 +45,6 @@ chmod 600 ~/.nanobot/config.json
       "enabled": true,
       "token": "YOUR_BOT_TOKEN",
       "allowFrom": ["123456789", "987654321"]
-    },
-    "whatsapp": {
-      "enabled": true,
-      "allowFrom": ["+1234567890"]
     }
   }
 }
@@ -57,7 +53,6 @@ chmod 600 ~/.nanobot/config.json
 **Security Notes:**
 - In `v0.1.4.post3` and earlier, an empty `allowFrom` allowed all users. Since `v0.1.4.post4`, empty `allowFrom` denies all access by default — set `["*"]` to explicitly allow everyone.
 - Get your Telegram user ID from `@userinfobot`
-- Use full phone numbers with country code for WhatsApp
 - Review access logs regularly for unauthorized access attempts
 
 ### 3. Shell Command Execution
@@ -109,11 +104,6 @@ File operations have path traversal protection, but:
 - Timeouts are configured to prevent hanging requests
 - Consider using a firewall to restrict outbound connections if needed
 
-**WhatsApp Bridge:**
-- The bridge binds to `127.0.0.1:3001` (localhost only, not accessible from external network)
-- Set `bridgeToken` in config to enable shared-secret authentication between Python and Node.js
-- Keep authentication data in `~/.nanobot/whatsapp-auth` secure (mode 0700)
-
 ### 6. Dependency Security
 
 **Critical**: Keep dependencies updated!
@@ -127,17 +117,10 @@ pip-audit
 pip install --upgrade nanobot-ai
 ```
 
-For Node.js dependencies (WhatsApp bridge):
-```bash
-cd bridge
-npm audit
-npm audit fix
-```
-
 **Important Notes:**
 - Keep `litellm` updated to the latest version for security fixes
 - We've updated `ws` to `>=8.17.1` to fix DoS vulnerability
-- Run `pip-audit` or `npm audit` regularly
+- Run `pip-audit` regularly
 - Subscribe to security advisories for nanobot and its dependencies
 
 ### 7. Production Deployment
@@ -161,7 +144,6 @@ For production use:
    ```bash
    chmod 700 ~/.nanobot
    chmod 600 ~/.nanobot/config.json
-   chmod 700 ~/.nanobot/whatsapp-auth
    ```
 
 4. **Enable Logging**
@@ -238,7 +220,6 @@ If you suspect a security breach:
 ✅ **Secure Communication**
 - HTTPS for all external API calls
 - TLS for Telegram API
-- WhatsApp bridge: localhost-only binding + optional token auth
 
 ## Known Limitations
 

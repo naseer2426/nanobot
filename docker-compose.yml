@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     ports:
       - 18790:18790
-      - 9000:9000
+      - 9876:9000
     deploy:
       resources:
         limits:
@@ -38,6 +38,7 @@ services:
     restart: unless-stopped
     ports:
       - 127.0.0.1:8900:8900
+      - 9876:9000
     deploy:
       resources:
         limits:
